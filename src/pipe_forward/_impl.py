@@ -3,9 +3,9 @@ from typing import Callable, TypeVar, Generic
 
 __all__ = ["P", "StackPipe", "LoopPipe"]
 
-# input type
+# Input type
 T = TypeVar("T")
-# output types
+# Output types
 O = TypeVar("O")
 X = TypeVar("X")
 
@@ -21,6 +21,12 @@ class P(Generic[T, X]):
         >>> pipe = P(str) | int | float
         >>> pipe(123)
         123.0
+        >>> result = pipe @ 123
+        >>> result
+        123.0
+        >>> result = 123 @ pipe
+        >>> result
+        123.0
     """
 
     def __init__(self, fn: Callable[[T], X]):
@@ -34,6 +40,30 @@ class P(Generic[T, X]):
     def __call__(self, arg: T) -> X:
         """Apply the pipeline to an argument."""
         return self.fn(arg)
+
+    def __matmul__(self, arg: T) -> X:
+        """
+        Apply the pipeline to an argument using the `@` operator.
+
+        Example:
+            >>> pipe = P(str) | int | float
+            >>> result = pipe @ 123
+            >>> result
+            123.0
+        """
+        return self(arg)  # Just call the pipeline
+
+    def __rmatmul__(self, arg: T) -> X:
+        """
+        Apply the pipeline to the left-hand argument using the `@` operator.
+
+        Example:
+            >>> pipe = P(str) | int | float
+            >>> result = 123 @ pipe
+            >>> result
+            123.0
+        """
+        return self(arg)  # Same behavior
 
 
 # Alias
@@ -49,6 +79,12 @@ class LoopPipe(Generic[T, X]):
         >>> from pipe import LoopPipe
         >>> pipe = LoopPipe(str) | int | float
         >>> pipe(123)
+        123.0
+        >>> result = pipe @ 123
+        >>> result
+        123.0
+        >>> result = 123 @ pipe
+        >>> result
         123.0
     """
 
@@ -68,3 +104,27 @@ class LoopPipe(Generic[T, X]):
         for fn in self.fns:
             res = fn(res)
         return res
+
+    def __matmul__(self, arg: T) -> O:
+        """
+        Apply the pipeline to an argument using the `@` operator.
+
+        Example:
+            >>> pipe = LoopPipe(str) | int | float
+            >>> result = pipe @ 123
+            >>> result
+            123.0
+        """
+        return self(arg)  # Just call the pipeline
+
+    def __rmatmul__(self, arg: T) -> O:
+        """
+        Apply the pipeline to the left-hand argument using the `@` operator.
+
+        Example:
+            >>> pipe = LoopPipe(str) | int | float
+            >>> result = 123 @ pipe
+            >>> result
+            123.0
+        """
+        return self(arg)  # Same behavior
