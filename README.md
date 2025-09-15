@@ -36,7 +36,7 @@ assert (P(int) | float)("123") == fn("123") == 123.0
 ```python
 from pipe_forward import P
 fn = P(int) | float
-assert "123" @ fn == fn @ "123" == 123.0 # use prexix or suffix notation
+assert "123" @ fn == fn @ "123" == 123.0 # use prefix or suffix notation
 ```
 
 ### Composability
