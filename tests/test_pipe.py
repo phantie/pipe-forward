@@ -61,3 +61,12 @@ def test_pipe_with_pipe():
     pipe_forward = pipe_forward | P(int)
     res = pipe_forward(1)
     assert res == 1
+
+def test_pipe_example_equal_behavior():
+    from pipe_forward import StackPipe
+    from pipe_forward import LoopPipe
+
+    stack = StackPipe(float) | str
+    loop = LoopPipe(float) | str
+
+    assert stack(10) == loop(10) == "10.0"

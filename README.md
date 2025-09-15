@@ -51,10 +51,10 @@ assert to_str(42.0) == "42"
 from pipe_forward import StackPipe
 from pipe_forward import LoopPipe
 
-stack = StackPipe(str) | int
-loop = LoopPipe(str) | int
+stack = StackPipe(float) | str
+loop = LoopPipe(float) | str
 
-assert stack(10) == loop(10) == 10
+assert stack(10) == loop(10) == "10.0"
 ```
 
 ---
