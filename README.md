@@ -4,7 +4,7 @@ A tiny functional composition utility for Python.
 
 It allows you to create pipelines of functions using the `|` operator.
 
-Like `|>` operator in #F sharp.
+Like `|>` (pipe forward) operator in #F sharp.
 
 ---
 
@@ -34,8 +34,9 @@ assert result == 123.0
 ```python
 from pipe_forward import P
 # linter correctly recognizes it as P[object, int]
+
 to_int = P(int) # convert to int
-# linter recognizes it as P[object, str]
+# linter correctly recognizes it as P[object, str]
 to_str = to_int | str # convert to int, and then to str
 
 assert to_int(42.0) == 42
