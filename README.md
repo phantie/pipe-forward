@@ -4,7 +4,7 @@ A tiny functional composition utility for Python.
 
 It allows you to create pipelines of functions using the `|` operator.
 
-Similar to `|>` (pipe forward) operator in #F sharp
+Similar to `|>` (pipe forward) operator in F#.
 
 ---
 
