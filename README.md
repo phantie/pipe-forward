@@ -16,7 +16,7 @@ Similar to `|>` (pipe forward) operator in F#.
 from pipe_forward import P  # alias for StackPipe
 
 
-assert "123" @ (P(int) | float) == 123.0 # tranform "123" to int, then to float
+assert "123" @ (P(int) | float) == 123.0 # transform "123" to int, then to float
                                          # quickly interpreted as written - direct flow
 
 # inverted flow (thumbs down)
